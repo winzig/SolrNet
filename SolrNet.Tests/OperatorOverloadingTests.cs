@@ -103,5 +103,34 @@ namespace SolrNet.Tests {
             var q = SolrQuery.All - new SolrQuery("product");
             Assert.AreEqual("(*:*  -product)", Serialize(q));
         }
+
+        [Test]
+        public void CompositionIgnoreNullOR() {
+            var qLeft = new SolrQuery("left");
+            var qRight = new SolrQuery("right");
+            Assert.AreEqual(qLeft || null, qLeft);
+            Assert.AreEqual(null || qRight, qRight);
+            AbstractSolrQuery composite = null;
+            composite |= qRight;
+            Assert.AreEqual(composite, qRight);
+            composite = qLeft || qRight;
+            Assert.AreNotEqual(composite, qLeft);
+            Assert.AreNotEqual(composite, qRight);
+        }
+
+        [Test]
+        public void CompositionIgnoreNullAND() {
+            var qLeft = new SolrQuery("left");
+            var qRight = new SolrQuery("right");
+            Assert.AreEqual(qLeft & null, qLeft);
+            Assert.AreEqual(null & qRight, qRight);
+            AbstractSolrQuery composite = null;
+            composite &= qRight;
+            Assert.AreEqual(composite, qRight);
+            composite = qLeft & qRight;
+            Assert.AreNotEqual(composite, qLeft);
+            Assert.AreNotEqual(composite, qRight);
+        }
+
     }
 }
