@@ -108,28 +108,28 @@ namespace SolrNet.Tests {
         public void CompositionIgnoreNullOR() {
             var qLeft = new SolrQuery("left");
             var qRight = new SolrQuery("right");
-            Assert.AreEqual(qLeft || null, qLeft);
-            Assert.AreEqual(null || qRight, qRight);
+            Assert.AreEqual(qLeft, qLeft || null);
+            Assert.AreEqual(qRight, null || qRight);
             AbstractSolrQuery composite = null;
             composite |= qRight;
-            Assert.AreEqual(composite, qRight);
+            Assert.AreEqual(qRight, composite);
             composite = qLeft || qRight;
-            Assert.AreNotEqual(composite, qLeft);
-            Assert.AreNotEqual(composite, qRight);
+            Assert.AreNotEqual(qLeft, composite);
+            Assert.AreNotEqual(qRight, composite);
         }
 
         [Test]
         public void CompositionIgnoreNullAND() {
             var qLeft = new SolrQuery("left");
             var qRight = new SolrQuery("right");
-            Assert.AreEqual(qLeft & null, qLeft);
-            Assert.AreEqual(null & qRight, qRight);
+            Assert.AreEqual(qLeft, qLeft & null);
+            Assert.AreEqual(qRight, null & qRight);
             AbstractSolrQuery composite = null;
             composite &= qRight;
-            Assert.AreEqual(composite, qRight);
+            Assert.AreEqual(qRight, composite);
             composite = qLeft & qRight;
-            Assert.AreNotEqual(composite, qLeft);
-            Assert.AreNotEqual(composite, qRight);
+            Assert.AreNotEqual(qLeft, composite);
+            Assert.AreNotEqual(qRight, composite);
         }
 
     }
