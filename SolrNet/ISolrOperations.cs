@@ -33,6 +33,13 @@ namespace SolrNet {
         /// </summary>
         ResponseHeader Commit();
 
+		/// <summary>
+		/// Commits posted documents, 
+		/// blocking until index changes are flushed to disk and
+		/// blocking until a new searcher is opened and registered as the main query searcher, making the changes visible.
+		/// </summary>
+		ResponseHeader SoftCommit();
+
         /// <summary>
         /// Rollbacks all add/deletes made to the index since the last commit.
         /// </summary>

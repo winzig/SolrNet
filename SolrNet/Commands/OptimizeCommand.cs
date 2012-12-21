@@ -36,6 +36,14 @@ namespace SolrNet.Commands {
 		/// </summary>
 		public bool? WaitSearcher { get; set; }
 
+		/// <summary>
+		/// Perform a soft commit - this will refresh the 'view' of the index in 
+		/// a more performant manner, but without "on-disk" guarantees.
+		/// Default is false
+		/// </summary>
+		/// <remarks>Requires Solr 4.0</remarks>
+		public bool? SoftCommit { get; set; }
+
         /// <summary>
         /// Merge segments with deletes away
         /// Default is false

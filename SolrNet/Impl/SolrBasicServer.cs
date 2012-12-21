@@ -52,6 +52,7 @@ namespace SolrNet.Impl {
             var cmd = new CommitCommand {
                 WaitFlush = options.WaitFlush, 
                 WaitSearcher = options.WaitSearcher,
+				SoftCommit = options.SoftCommit,
                 ExpungeDeletes = options.ExpungeDeletes,
                 MaxSegments = options.MaxSegments,
             };
@@ -63,6 +64,7 @@ namespace SolrNet.Impl {
             var cmd = new OptimizeCommand {
                 WaitFlush = options.WaitFlush, 
                 WaitSearcher = options.WaitSearcher,
+				SoftCommit = options.SoftCommit,
                 ExpungeDeletes = options.ExpungeDeletes,
                 MaxSegments = options.MaxSegments,
             };

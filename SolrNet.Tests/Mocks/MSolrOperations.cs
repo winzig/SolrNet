@@ -58,6 +58,11 @@ namespace SolrNet.Tests.Mocks {
             throw new NotImplementedException();
         }
 
+		public ResponseHeader SoftCommit()
+		{
+			throw new NotImplementedException();
+		}
+
         public ResponseHeader Rollback() {
             throw new NotImplementedException();
         }

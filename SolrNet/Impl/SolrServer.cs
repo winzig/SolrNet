@@ -32,11 +32,13 @@ namespace SolrNet.Impl {
         private readonly ISolrBasicOperations<T> basicServer;
         private readonly IReadOnlyMappingManager mappingManager;
         private readonly IMappingValidator _schemaMappingValidator;
+		private readonly CommitOptions softCommitOptions;
 
         public SolrServer(ISolrBasicOperations<T> basicServer, IReadOnlyMappingManager mappingManager, IMappingValidator _schemaMappingValidator) {
             this.basicServer = basicServer;
             this.mappingManager = mappingManager;
             this._schemaMappingValidator = _schemaMappingValidator;
+			this.softCommitOptions = new CommitOptions() { SoftCommit = true };
         }
 
         /// <summary>
@@ -235,6 +237,16 @@ namespace SolrNet.Impl {
         public ResponseHeader Commit() {
             return basicServer.Commit(null);
         }
+
+		/// <summary>
+		/// Perform a soft commit - this will refresh the 'view' of the index in a more 
+		/// performant manner [than a normal hard commit], but without "on-disk" guarantees.
+		/// </summary>
+		/// <remarks>Requires Solr 4.0. See: http://wiki.apache.org/solr/UpdateXmlMessages#Optional_attributes_for_.22commit.22_and_.22optimize.22</remarks>
+		public ResponseHeader SoftCommit()
+		{
+			return basicServer.Commit(softCommitOptions);
+		}
 
         /// <summary>
         /// Rollbacks all add/deletes made to the index since the last commit.

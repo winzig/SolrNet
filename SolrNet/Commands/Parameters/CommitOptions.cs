@@ -26,12 +26,21 @@ namespace SolrNet.Commands.Parameters {
 		public bool? WaitSearcher { get; set; }
 
         /// <summary>
-        /// Block until index changes are flushed to disk
-        /// Default is true
+		/// Perform a soft commit - this will refresh the 'view' of the index in 
+		/// a more performant manner, but without "on-disk" guarantees.
+        /// Default is false
         /// </summary>
-		public bool? WaitFlush { get; set; }
+		/// <remarks>Requires Solr 4.0</remarks>
+		public bool? SoftCommit { get; set; }
 
-        /// <summary>
+		/// <summary>
+		/// Block until index changes are flushed to disk
+		/// Default is true
+		/// </summary>
+		/// <remarks>Deprecated in Solr 4.0</remarks>
+		public bool? WaitFlush { get; set; }
+		
+		/// <summary>
         /// Optimizes down to at most this number of segments
         /// Default is 1
         /// </summary>
